@@ -3,6 +3,7 @@ package com.project.models.professor;
 import com.project.models.curso.Curso;
 import com.project.models.enums.Sexo;
 import com.project.models.enums.TipoContratoProfessor;
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,6 +14,7 @@ import java.math.BigDecimal;
 @Table(name = "tb_professor")
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -26,7 +28,7 @@ public class Professor{
     private String cpf;
     @Enumerated(EnumType.STRING)
     private Sexo sexo;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Curso Curso;
     @Enumerated(EnumType.STRING)
     private TipoContratoProfessor TipoContrato;

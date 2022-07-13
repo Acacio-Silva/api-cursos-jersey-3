@@ -1,7 +1,6 @@
 package com.project.dao.impl;
 
 import com.project.dao.CursoDAO;
-import com.project.models.aluno.Aluno;
 import com.project.models.curso.Curso;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -43,8 +42,10 @@ public class CursoDAOImpl implements CursoDAO {
                 .createEntityManagerFactory("crud");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
+        entityManager.getTransaction().begin();
         Query query = entityManager.createQuery("SELECT c FROM Curso c");
         List<Curso> cursos = query.getResultList();
+        entityManager.getTransaction().commit();
 
         entityManager.close();
         entityManagerFactory.close();
@@ -61,7 +62,7 @@ public class CursoDAOImpl implements CursoDAO {
         buscaCurso.setId(id);
         buscaCurso.setNome(curso.getNome());
         buscaCurso.setQuantidadeAlunos(curso.getQuantidadeAlunos());
-        buscaCurso.setPreço(curso.getPreço());
+        buscaCurso.setPreco(curso.getPreco());
         buscaCurso.setAlunos(curso.getAlunos());
         buscaCurso.setProfessor(curso.getProfessor());
 

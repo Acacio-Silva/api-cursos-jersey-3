@@ -2,6 +2,7 @@ package com.project.controllers.impl;
 
 import com.project.controllers.AlunoController;
 import com.project.models.aluno.AlunoRequest;
+import com.project.models.curso.CursoRequest;
 import com.project.services.impl.AlunoServiceImpl;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -56,7 +57,15 @@ public class AlunoControllerImpl implements AlunoController {
     @DELETE
     @Override
     public Response remove(@PathParam("id") Integer id) {
+        System.out.println(id);
         alunoService.remove(id);
         return Response.noContent().build();
+    }
+
+    @Path("/matricula/{idAluno}/{idCurso}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @PUT
+    public Response matricula(@PathParam("idAluno") Integer idAluno,@PathParam("idCurso") Integer idCurso){
+        return Response.ok(alunoService.matricula(idAluno, idCurso)).build();
     }
 }

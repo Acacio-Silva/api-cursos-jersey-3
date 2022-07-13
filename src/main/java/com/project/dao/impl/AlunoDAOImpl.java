@@ -3,8 +3,10 @@ package com.project.dao.impl;
 import com.project.dao.AlunoDAO;
 import com.project.models.aluno.Aluno;
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import java.util.List;
+
 
 public class AlunoDAOImpl implements AlunoDAO {
 
@@ -36,8 +38,10 @@ public class AlunoDAOImpl implements AlunoDAO {
                 .createEntityManagerFactory("crud");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
+        entityManager.getTransaction().begin();
         Query query = entityManager.createQuery("SELECT a FROM Aluno a");
         List<Aluno> alunos = query.getResultList();
+        entityManager.getTransaction().commit();
 
         entityManager.close();
         entityManagerFactory.close();
@@ -82,9 +86,10 @@ public class AlunoDAOImpl implements AlunoDAO {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         Aluno aluno = entityManager.find(Aluno.class, id);
-
+        System.out.println(aluno.toString());
+        entityManager.getTransaction().begin();
         entityManager.remove(aluno);
-
+        entityManager.getTransaction().commit();
         entityManager.close();
         entityManagerFactory.close();
 

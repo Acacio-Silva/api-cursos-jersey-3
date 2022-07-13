@@ -31,8 +31,10 @@ public class ProfessorDAOImpl implements ProfessorDAO {
                 .createEntityManagerFactory("crud");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
+        entityManager.getTransaction().begin();
         Query query = entityManager.createQuery("SELECT p FROM Professor p");
         List<Professor> professores = query.getResultList();
+        entityManager.getTransaction().commit();
 
         entityManager.close();
         entityManagerFactory.close();
@@ -78,8 +80,9 @@ public class ProfessorDAOImpl implements ProfessorDAO {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         Professor professor = entityManager.find(Professor.class, id);
-
+        entityManager.getTransaction().begin();
         entityManager.remove(professor);
+        entityManager.getTransaction().commit();
 
         entityManager.close();
         entityManagerFactory.close();

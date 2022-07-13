@@ -14,5 +14,5 @@ public class AlunoResponse {
     private Integer id;
     private String nome;
     private String cpf;
-    private Curso Curso;
+
 }
