@@ -1,5 +1,6 @@
 package com.project.models.aluno;
 
+import com.project.models.curso.Curso;
 import lombok.*;
 
 @Getter
@@ -13,5 +14,5 @@ public class AlunoResponse {
     private Integer id;
     private String nome;
     private String cpf;
-    private String Curso;
+    private Curso Curso;
 }

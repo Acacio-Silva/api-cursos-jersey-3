@@ -1,5 +1,6 @@
 package com.project.models.professor;
 
+import com.project.models.curso.Curso;
 import com.project.models.enums.Sexo;
 import com.project.models.enums.TipoContratoProfessor;
 import jakarta.persistence.*;
@@ -25,7 +26,8 @@ public class Professor{
     private String cpf;
     @Enumerated(EnumType.STRING)
     private Sexo sexo;
-    private String Curso;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Curso Curso;
     @Enumerated(EnumType.STRING)
     private TipoContratoProfessor TipoContrato;
     private BigDecimal salario;

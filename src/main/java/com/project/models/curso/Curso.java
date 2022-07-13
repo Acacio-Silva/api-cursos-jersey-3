@@ -1,9 +1,12 @@
 package com.project.models.curso;
 
+import com.project.models.aluno.Aluno;
+import com.project.models.professor.Professor;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 
 @Entity
@@ -20,9 +23,11 @@ public class Curso {
     @EqualsAndHashCode.Include
     private Integer id;
     private String nome;
-    private String alunos;
+    @OneToMany(mappedBy = "curso")
+    private List<Aluno> alunos;
     private Integer quantidadeAlunos;
     private BigDecimal preço;
-    private String professor;
+    @OneToMany(mappedBy = "curso")
+    private Professor professor;
 
 }

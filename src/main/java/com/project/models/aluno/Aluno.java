@@ -1,5 +1,6 @@
 package com.project.models.aluno;
 
+import com.project.models.curso.Curso;
 import com.project.models.enums.Sexo;
 import com.project.models.enums.Situacao;
 import jakarta.persistence.*;
@@ -21,7 +22,8 @@ public class Aluno {
     private String cpf;
     @Enumerated(EnumType.STRING)
     private Sexo sexo;
-    private String Curso;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Curso Curso;
     @Enumerated(EnumType.STRING)
     private Situacao situacao;
 
