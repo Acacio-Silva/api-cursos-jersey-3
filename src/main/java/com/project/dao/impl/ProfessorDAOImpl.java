@@ -1,7 +1,6 @@
 package com.project.dao.impl;
 
 import com.project.dao.ProfessorDAO;
-import com.project.models.aluno.Aluno;
 import com.project.models.professor.Professor;
 import jakarta.persistence.*;
 
@@ -11,6 +10,8 @@ public class ProfessorDAOImpl implements ProfessorDAO {
 
     @Override
     public Professor save(Professor professor) {
+
+        System.out.println(professor.getTipoContrato());
 
         EntityManagerFactory entityManagerFactory = Persistence
                 .createEntityManagerFactory("crud");
@@ -44,7 +45,7 @@ public class ProfessorDAOImpl implements ProfessorDAO {
     @Override
     public Professor findById(Integer id) {
         EntityManagerFactory entityManagerFactory = Persistence
-                .createEntityManagerFactory("curd");
+                .createEntityManagerFactory("crud");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         Professor professor = entityManager.find(Professor.class, id);
@@ -90,26 +91,45 @@ public class ProfessorDAOImpl implements ProfessorDAO {
     }
 
     @Override
-    public Professor update(Integer id, Professor professor) {
+    public Professor update(Integer id, Professor professorRecebido) {
 
         EntityManagerFactory entityManagerFactory = Persistence
                 .createEntityManagerFactory("crud");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        Professor buscaProfessor = entityManager.find(Professor.class, id);
-        buscaProfessor.setId(id);
-        buscaProfessor.setNome(professor.getNome());
-        buscaProfessor.setCpf(professor.getCpf());
-        buscaProfessor.setSalario(professor.getSalario());
-        buscaProfessor.setSexo(professor.getSexo());
-        buscaProfessor.setTipoContrato(professor.getTipoContrato());
-        buscaProfessor.setCurso(professor.getCurso());
+        Professor professor = entityManager.find(Professor.class, id);
+
+        Professor professorVerificado = verificaProfessorRecebido(professorRecebido, professor);
 
         entityManager.getTransaction().begin();
-        entityManager.merge(buscaProfessor);
+        professorVerificado.setId(id);
+        entityManager.merge(professorVerificado);
         entityManager.getTransaction().commit();
 
 
-        return buscaProfessor;
+        return professorVerificado;
     }
+
+    private Professor verificaProfessorRecebido(Professor professorRecebido, Professor professor){
+        if (professorRecebido.getNome() == null){
+            professorRecebido.setNome(professor.getNome());
+        }
+        if (professorRecebido.getCpf() == null){
+            professorRecebido.setCpf(professor.getCpf());
+        }
+        if (professorRecebido.getCurso() == null){
+            professorRecebido.setCurso(professor.getCurso());
+        }
+        if (professorRecebido.getSalario() == null){
+            professorRecebido.setSalario(professor.getSalario());
+        }
+        if (professorRecebido.getSexo() == null){
+            professorRecebido.setSexo(professor.getSexo());
+        }
+        if (professorRecebido.getTipoContrato() == null){
+            professorRecebido.setTipoContrato(professor.getTipoContrato());
+        }
+        return professorRecebido;
+    }
+
 }

@@ -1,8 +1,6 @@
-package com.project.models.professor;
+package com.project.DTOs;
 
-import com.project.DTOs.CursoDTO;
 import com.project.models.curso.Curso;
-import com.project.models.curso.CursoResponse;
 import com.project.models.enums.Sexo;
 import com.project.models.enums.TipoContratoProfessor;
 import jakarta.persistence.EnumType;
@@ -14,18 +12,14 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class ProfessorRequest {
+public class ProfessorDTO {
 
     @EqualsAndHashCode.Include
     private Integer id;
     private String nome;
-    private String cpf;
-    private Sexo sexo;
-    private CursoDTO Curso;
-    private TipoContratoProfessor tipoContrato;
-    private BigDecimal salario;
 
 }

@@ -17,7 +17,6 @@ import java.util.List;
 @Table(name = "tb_cursos")
 @Getter
 @Setter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)

@@ -14,6 +14,5 @@ public interface ProfessorService {
     ProfessorRequest findByCpf(String cpf);
     ProfessorResponse update(Integer id, ProfessorRequest professorRequest);
     void remove(Integer id);
-
-
+    ProfessorResponse matriculaProfessor(Integer idProfessor, Integer idCurso);
 }

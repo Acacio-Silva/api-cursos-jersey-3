@@ -1,6 +1,7 @@
 package com.project.services.impl;
 
 import com.project.dao.impl.CursoDAOImpl;
+import com.project.exceptions.NotFoundException;
 import com.project.models.aluno.Aluno;
 import com.project.models.aluno.AlunoRequest;
 import com.project.models.curso.Curso;
@@ -25,7 +26,6 @@ public class CursoServiceImpl implements CursoService {
 
     @Override
     public List<CursoResponse> findAll() {
-        System.out.println("chegou aqui");
         return cursoDAO.findAll().stream()
                 .map(e-> mapper.map(e, CursoResponse.class)).collect(Collectors.toList());
     }
@@ -34,13 +34,14 @@ public class CursoServiceImpl implements CursoService {
     public CursoRequest findById(Integer id) {
         Curso curso = cursoDAO.findById(id);
         if(curso == null){
-            throw new RuntimeException("Curso não encontrado!");
+            throw new NotFoundException("Curso com id: "+ id + " não encontrado!");
         }
         return mapper.map(curso, CursoRequest.class);
     }
 
     @Override
     public CursoResponse update(Integer id, CursoRequest cursoRequest) {
+        findById(id);
         Curso curso = cursoDAO.update(id, mapper.map(cursoRequest, Curso.class));
         return mapper.map(curso, CursoResponse.class);
     }
@@ -49,7 +50,7 @@ public class CursoServiceImpl implements CursoService {
     public void remove(Integer id) {
         Curso curso = cursoDAO.findById(id);
         if(curso == null){
-            throw new RuntimeException("Curso não encontrado!");
+            throw new NotFoundException("Curso com id: "+ id + " não encontrado!");
         }
         cursoDAO.remove(id);
     }

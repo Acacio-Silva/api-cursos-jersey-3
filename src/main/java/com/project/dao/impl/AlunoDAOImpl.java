@@ -2,6 +2,7 @@ package com.project.dao.impl;
 
 import com.project.dao.AlunoDAO;
 import com.project.models.aluno.Aluno;
+import com.project.utils.Connection;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -11,14 +12,15 @@ import java.util.List;
 public class AlunoDAOImpl implements AlunoDAO {
 
     private ModelMapper mapper = new ModelMapper();
+    private Connection connection = new Connection();
+
 
     @Override
     public Aluno save(Aluno aluno) {
-
-        EntityManagerFactory entityManagerFactory = Persistence
+         EntityManagerFactory entityManagerFactory = Persistence
                 .createEntityManagerFactory("crud");
 
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         entityManager.getTransaction().begin();
 
@@ -102,19 +104,32 @@ public class AlunoDAOImpl implements AlunoDAO {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         Aluno aluno = entityManager.find(Aluno.class, id);
-        aluno.setId(id);
-        aluno.setNome(alunoRecebido.getNome());
-        aluno.setSexo(alunoRecebido.getSexo());
-        aluno.setCpf(alunoRecebido.getCpf());
-        aluno.setSituacao(alunoRecebido.getSituacao());
-        aluno.setCurso(alunoRecebido.getCurso());
-        System.out.println(alunoRecebido.getCurso());
+        Aluno alunoRetorno = verificaAlunoRecebido(alunoRecebido, aluno);
 
         entityManager.getTransaction().begin();
-        entityManager.merge(aluno);
+        alunoRetorno.setId(id);
+        entityManager.merge(alunoRetorno);
         entityManager.getTransaction().commit();
 
+        return alunoRetorno;
+    }
 
-        return aluno;
+    private Aluno verificaAlunoRecebido(Aluno alunoRecebido, Aluno aluno){
+        if (alunoRecebido.getNome() == null){
+            alunoRecebido.setNome(aluno.getNome());
+        }
+        if (alunoRecebido.getCpf() == null){
+            alunoRecebido.setCpf(aluno.getCpf());
+        }
+        if (alunoRecebido.getSexo() == null){
+            alunoRecebido.setSexo(aluno.getSexo());
+        }
+        if (alunoRecebido.getCurso() == null){
+            alunoRecebido.setCurso(aluno.getCurso());
+        }
+        if (alunoRecebido.getSituacao() == null){
+            alunoRecebido.setSituacao(aluno.getSituacao());
+        }
+            return alunoRecebido;
     }
 }

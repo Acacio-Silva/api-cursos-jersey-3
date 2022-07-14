@@ -17,6 +17,7 @@ public class ProfessorControllerImpl implements ProfessorController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Override
     public Response save(ProfessorRequest professorRequest) {
+        System.out.println(professorRequest.getTipoContrato());
         return Response.status(Response.Status.CREATED)
                 .entity(professorService.save(professorRequest)).build();
     }
@@ -59,5 +60,16 @@ public class ProfessorControllerImpl implements ProfessorController {
     @Override
     public Response update(@PathParam("id") Integer id, ProfessorRequest professorRequest) {
         return Response.ok(professorService.update(id, professorRequest)).build();
+    }
+
+
+    @Path("/matriculaProfessor/{idProfessor}/{idCurso}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @PUT
+    public Response matricula(@PathParam("idProfessor") Integer idProfessor,
+                              @PathParam("idCurso") Integer idCurso){
+        System.out.println("id professor: " +idProfessor);
+        System.out.println("id curso: " +idCurso);
+        return Response.ok(professorService.matriculaProfessor(idProfessor, idCurso)).build();
     }
 }

@@ -14,7 +14,6 @@ import java.math.BigDecimal;
 @Table(name = "tb_professor")
 @Getter
 @Setter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -31,7 +30,7 @@ public class Professor{
     @OneToOne
     private Curso Curso;
     @Enumerated(EnumType.STRING)
-    private TipoContratoProfessor TipoContrato;
+    private TipoContratoProfessor tipoContrato;
     private BigDecimal salario;
 
 

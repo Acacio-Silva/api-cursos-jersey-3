@@ -53,24 +53,20 @@ public class CursoDAOImpl implements CursoDAO {
     }
 
     @Override
-    public Curso update(Integer id, Curso curso) {
+    public Curso update(Integer id, Curso cursoRecebido) {
         EntityManagerFactory entityManagerFactory = Persistence
                 .createEntityManagerFactory("crud");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        Curso buscaCurso = entityManager.find(Curso.class, id);
-        buscaCurso.setId(id);
-        buscaCurso.setNome(curso.getNome());
-        buscaCurso.setQuantidadeAlunos(curso.getQuantidadeAlunos());
-        buscaCurso.setPreco(curso.getPreco());
-        buscaCurso.setAlunos(curso.getAlunos());
-        buscaCurso.setProfessor(curso.getProfessor());
+        Curso curso = entityManager.find(Curso.class, id);
 
+        Curso cursoVerificado = verrificaCursoRecebido(cursoRecebido, curso);
+        cursoVerificado.setId(id);
         entityManager.getTransaction().begin();
-        entityManager.merge(buscaCurso);
+        entityManager.merge(cursoVerificado);
         entityManager.getTransaction().commit();
 
-        return buscaCurso;
+        return cursoVerificado;
     }
 
     @Override
@@ -88,4 +84,24 @@ public class CursoDAOImpl implements CursoDAO {
         entityManagerFactory.close();
 
     }
+
+    private Curso verrificaCursoRecebido(Curso cursoRecebido, Curso curso){
+        if (cursoRecebido.getNome() == null){
+            cursoRecebido.setNome(curso.getNome());
+        }
+        if (cursoRecebido.getProfessor() == null){
+            cursoRecebido.setProfessor(curso.getProfessor());
+        }
+        if (cursoRecebido.getQuantidadeAlunos() == null){
+            cursoRecebido.setQuantidadeAlunos(curso.getQuantidadeAlunos());
+        }
+        if (cursoRecebido.getPreco() == null){
+            cursoRecebido.setPreco(curso.getPreco());
+        }
+        if (cursoRecebido.getAlunos() == null){
+            cursoRecebido.setAlunos(curso.getAlunos());
+        }
+        return cursoRecebido;
+    }
+
 }

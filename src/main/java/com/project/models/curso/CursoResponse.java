@@ -1,5 +1,7 @@
 package com.project.models.curso;
 
+import com.project.DTOs.AlunoDTO;
+import com.project.DTOs.ProfessorDTO;
 import com.project.models.aluno.Aluno;
 import com.project.models.aluno.AlunoResponse;
 import com.project.models.professor.Professor;
@@ -25,7 +27,7 @@ public class CursoResponse {
     private String nome;
     private Integer quantidadeAlunos;
     private BigDecimal preco;
-    private ProfessorResponse professor;
-    private List<AlunoResponse> alunos;
+    private ProfessorDTO professor;
+    private List<AlunoDTO> alunos;
 
 }
