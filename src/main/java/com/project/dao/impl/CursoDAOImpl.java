@@ -78,7 +78,9 @@ public class CursoDAOImpl implements CursoDAO {
 
         Curso curso = entityManager.find(Curso.class, id);
 
+        entityManager.getTransaction().begin();
         entityManager.remove(curso);
+        entityManager.getTransaction().commit();
 
         entityManager.close();
         entityManagerFactory.close();

@@ -1,13 +1,8 @@
 package com.project.models.professor;
 
 import com.project.DTOs.CursoDTO;
-import com.project.models.curso.Curso;
-import com.project.models.curso.CursoResponse;
 import com.project.models.enums.Sexo;
 import com.project.models.enums.TipoContratoProfessor;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.OneToOne;
 import lombok.*;
 
 import java.math.BigDecimal;
