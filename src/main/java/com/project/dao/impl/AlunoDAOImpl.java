@@ -2,9 +2,7 @@ package com.project.dao.impl;
 
 import com.project.dao.AlunoDAO;
 import com.project.models.aluno.Aluno;
-import com.project.utils.Connection;
 import jakarta.persistence.*;
-import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import java.util.List;
 
@@ -12,7 +10,6 @@ import java.util.List;
 public class AlunoDAOImpl implements AlunoDAO {
 
     private ModelMapper mapper = new ModelMapper();
-    private Connection connection = new Connection();
 
 
     @Override
